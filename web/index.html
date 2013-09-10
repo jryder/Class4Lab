@@ -5,42 +5,46 @@ and open the template in the editor.
 <!DOCTYPE html>
 <html>
     <head>
-	<title></title>
+	<title>Area Calculator</title>
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <LINK href="main.css" rel="stylesheet" type="text/css">
     </head>
     <body>
-	<div>TODO write content</div>
+	<div>
 	
 		
+            <h1>
+                Area Calculator
+                
+            </h1>
 	
+	<form method ="post" action="AreaController?type=rectangle">
 	
-	<form method ="post" action="AreaController">
-	<p>Length
-	<input id ="length" name="length" type="text">    
+            <h2>Rectangle</h2>
+            <p>Length
+	<input id ="length" name="length" type="text" placeholder ="e.g. 5.55">    
 	
 	</p>
 			
-	<p>Width
-	    
+	<p>Width 
 	<input id ="width" name="width" type="text">    
 	</p>
-
 	<input id="rectangle" name="rectangle" type="submit" value="Get Area">	
-	
 	</form>
+
+        
+        
+	<form method ="post" action="AreaController?type=circle"> Calculate Circle   
 	
-	
-	
-	
-	<form method ="post"> Calculate Circle   
-	<p>Radius
-	<input id ="radius" name="width" type="text">    
+            <h2>Circle</h2>
+            <p>Radius
+	<input id ="radius" name="radius" type="text">    
 	</p>
 
 	<input id="circle" name="rectangle" type="submit" value="Get Area">	
 	</form>	
-	
-	
-	
+
+        </div>
+            
     </body>
 </html>

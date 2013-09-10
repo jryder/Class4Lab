@@ -9,21 +9,35 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>JSP Page</title>
+        <LINK href="main.css" rel="stylesheet" type="text/css">
+        <title>RESULTS!!!</title>
     </head>
     <body>
-        <h1>  
-	    
-	    <%
+        
+        <div>
+        <h1>
+
+            <%
+            
+                 out.print((String)request.getAttribute("msg"));               
                 
-            Object o = request.getAttribute("msg");    
-            String s = "Error";
-            if (o!=null){
-                s = (String)request.getAttribute("msg"); 
-            }            
-            out.print(s);
+            
             %>
-	
+            
 	</h1>
+            
+            <p>    
+            	    <%
+
+                String s = (String)request.getAttribute("sqft");
+                out.print("The result is " + s);
+            
+            %>
+            </p>
+            
+            <p>
+                <a href ="index.html">Go back to main page</a>
+            </p>
+        </div> 
     </body>
 </html>

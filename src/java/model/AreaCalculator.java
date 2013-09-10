@@ -8,9 +8,17 @@ package model;
 public class AreaCalculator {
 
     
-    public int getSquareFeet(int length, int width){
+    public double getSquareFeet(double length, double width){
 	
 	return length * width;	
 	
     }
+    
+    public double getCircleFeet(double radius){
+    
+        return radius * 2 * Math.PI;
+        
+    }
+    
+    
 }

@@ -13,6 +13,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import model.AreaCalculator;
+
+
 /**
  *
  * @author jorda_000
@@ -31,28 +33,54 @@ public class AreaController extends HttpServlet {
      * @throws IOException if an I/O error occurs
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-	    throws ServletException, IOException {
-	response.setContentType("text/html;charset=UTF-8");
-	PrintWriter out = response.getWriter();
-	
-	try {
-		String name = request.getParameter("length");
-		String pass = request.getParameter("width");
-	    
-	        AreaCalculator mp = new AreaCalculator();
-                String sqft = Integer.toString(mp.getSquareFeet(1,2));
-                request.setAttribute("sqft",sqft);
+            throws ServletException, IOException {
+        response.setContentType("text/html;charset=UTF-8");
+        PrintWriter out = response.getWriter();
 
-	} finally {	    
-	    //out.close();
-	}
-	
-	RequestDispatcher view =
+        String msg = "";
+        String type = request.getParameter("type");
+
+
+        if (type.equals("rectangle")) {
+            try {
+
+                String sLength = request.getParameter("length");
+                String sWidth = request.getParameter("width");
+
+                double length = Double.valueOf(sLength);
+                double width = Double.valueOf(sWidth);
+
+                AreaCalculator mp = new AreaCalculator();
+                String sqft = Double.toString(mp.getSquareFeet(length, width));
+                request.setAttribute("sqft", sqft);
+                msg = "The area of a rectangle is length * width (" + length + " * " + width + ")";
+
+            } catch (NumberFormatException e) {
+                msg = "Please enter valid numbers.";
+            }
+        } else {
+            try {
+
+                String sRadius = request.getParameter("radius");
+                double radius = Double.valueOf(sRadius);
+
+                AreaCalculator mp = new AreaCalculator();
+                String sqft = Double.toString(mp.getCircleFeet(radius));
+                request.setAttribute("sqft", sqft);
+
+                msg = "The area of a circle is 2 * PI * radius (2 * PI * " + radius + ")";
+                
+            } catch (NumberFormatException e) {
+                msg = "Please enter valid numbers.";
+            }
+        }
+
+        request.setAttribute("msg", msg);
+        RequestDispatcher view =
                 request.getRequestDispatcher("result.jsp");
-        view.forward(request, response);
-	
-    }
 
+        view.forward(request, response);
+    }
     
     
     
@@ -63,16 +91,8 @@ public class AreaController extends HttpServlet {
     
     
     
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
+// <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
+
     /**
      * Handles the HTTP
      * <code>GET</code> method.
@@ -84,8 +104,8 @@ public class AreaController extends HttpServlet {
      */
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
-	    throws ServletException, IOException {
-	processRequest(request, response);
+            throws ServletException, IOException {
+        processRequest(request, response);
     }
 
     /**
@@ -99,8 +119,8 @@ public class AreaController extends HttpServlet {
      */
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
-	    throws ServletException, IOException {
-	processRequest(request, response);
+            throws ServletException, IOException {
+        processRequest(request, response);
     }
 
     /**
@@ -110,6 +130,6 @@ public class AreaController extends HttpServlet {
      */
     @Override
     public String getServletInfo() {
-	return "Short description";
+        return "Short description";
     }// </editor-fold>
 }
